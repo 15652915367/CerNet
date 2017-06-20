@@ -1,0 +1,79 @@
+<html>
+<head>
+    <title>Inner-car Sight</title>
+    <script src="js/RGraph.common.core.js" ></script>
+    <script src="js/RGraph.common.effects.js" ></script>
+    <script src="js/RGraph.common.dynamic.js" ></script>
+    <script src="js/RGraph.gauge.js" ></script>
+    <script src="js/excanvas.js"></script>
+    <script>
+        window.onload = function () {
+            (function(){
+            var element = document.getElementById("rotate");
+            var r = 0;
+            var i = 1;
+            function rotate(){
+                r += i;
+                if( Math.abs(r) >= 25 ) i*=-1
+                element.style.MozTransform = "rotate(" + r + "deg)";
+                element.style.webkitTransform ="rotate(" + r + "deg)";
+                element.style.msTransform = "rotate(" + r + "deg)";
+                element.style.OTransform = "rotate(" + r + "deg)";
+                element.style.transform = "rotate(" + r + "deg)";
+            }
+
+            var timer = setInterval(rotate,50);
+
+            element.onmouseover = function(){
+                clearInterval(timer);
+                timer = null;
+            };
+
+            element.onmouseout = function(){
+                if(timer)return;
+                timer = setInterval(rotate,30);
+            };
+            }());
+
+            var gauge1 = new RGraph.Gauge('cvs1', 0, 200, 84);
+            gauge1.Set('chart.scale.decimals', 0);
+            gauge1.Set('chart.tickmarks.small', 50);
+            gauge1.Set('chart.tickmarks.big',5);
+            //gauge1.Set('chart.title.top', 'Speed');
+            //gauge1.Set('chart.title.top.color', '#aaa');
+            //gauge1.Set('chart.title.top.size', 21);
+            gauge1.Set('chart.title.bottom.size', 'Italic 14');
+            gauge1.Set('chart.title.bottom.font', 'Impact');
+            gauge1.Set('chart.title.bottom', 'km/h');
+            gauge1.Set('chart.title.bottom.pos', 0.4);
+            gauge1.Set('chart.title.bottom.color', '#aaa');
+
+            gauge1.Set('chart.centerpin.color', '#666');
+            gauge1.Set('chart.background.color', 'black');
+            gauge1.Set('chart.background.gradient', true);
+            gauge1.Set('chart.text.color', 'white');
+            gauge1.Set('chart.tickmarks.big.color', 'white');
+            gauge1.Set('chart.tickmarks.small.color', 'white');
+            gauge1.Set('chart.border.outer', '#666');
+            gauge1.Set('chart.border.inner', '#333');
+            gauge1.Draw();            
+			function Updategauge () {
+				gauge1.value=RGraph.random(5,90);
+				RGraph.Effects.Gauge.Grow(gauge1);
+				setTimeout(Updategauge, 2000);
+			}
+			Updategauge();
+        }
+    </script>
+</head>
+<body>
+    <div id="inner-sight" style="text-align:center;">
+        <div id="rotate" style="cursor:pointer; position:absolute; left:0px; top:0px">
+            <img src="img/circle.png"  width="180" height="180"/>
+        </div>
+        <div style="position:absolute; left:200px; top:-10px">
+            <canvas id="cvs1" width="200" height="200">[No canvas support]</canvas>
+        </div>
+    </div>
+</body>
+</html>

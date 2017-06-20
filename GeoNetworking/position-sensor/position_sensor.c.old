@@ -1,0 +1,254 @@
+/***************************************************************************
+ *                              CarGeo6 Project                            *
+ *         Position sensor implementation conforming with GeoNet D2.2      *
+ *                                                                         *
+ *                      Copyright(C)2010 ESPRIT-INRIA                      *
+ *                                                                         *
+ *                                                                         *
+ *   Authors:                                                              *
+ *   Hichem BARGAOUI <barghich@gmail.com>                                  *
+ *   Anouar CHEMEK <anouar.chemek@gmail.com>                               *
+ *                                                                         *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ ***************************************************************************/
+
+/**
+ * @file position_sensor.c
+ * position sensor code.
+ * @author Hichem BARGAOUI
+ * @author Anouar CHEMEK
+ */
+
+#include <errno.h>
+#include <asm/types.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <signal.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <sys/un.h>
+#include <gps.h>
+#include <math.h>
+#include "itsnet_types.h"
+
+#define SOCK_ITSNET_PATH "/tmp/itsnet_socket"
+#define PATH_MAX 20
+
+#define PI 3.14159265358979323846
+#define RADIUS 6371  //Radius of the earth
+
+static struct gps_data_t GPS;
+
+static struct itsnet_position_information ego_position_information;
+
+int convert_format_lat(const double lat);
+
+double inv_convert_format_lat(const int lat);
+
+int convert_format_long(const double lon);
+
+double inv_convert_format_long(const int lon);
+
+int convert_time_stamp(const double ts);
+
+int convert_format_spd(const double spd);
+
+double inv_convert_format_spd(const int spd);
+
+double _deg2rad(double deg);
+
+int convert_format_alt(const double alt);
+
+static void gps_data_update()
+{
+
+
+	ego_position_information.accuracy=0;
+	ego_position_information.time_stamp=convert_time_stamp(GPS.fix.time);
+	ego_position_information.latitude=convert_format_lat(GPS.fix.latitude);
+	ego_position_information.longitude=convert_format_long(GPS.fix.longitude);
+	ego_position_information.speed=convert_format_spd(GPS.fix.speed);
+	ego_position_information.heading=convert_format_head(GPS.fix.track);
+	ego_position_information.altitude=convert_format_alt(GPS.fix.altitude);
+
+	printf("mode=%d,time=%f,lat=%f,lon=%f,speed=%f,alt=%f,heading=%f\n",
+		GPS.fix.mode,
+		GPS.fix.time,
+		GPS.fix.latitude,
+		GPS.fix.longitude,
+		GPS.fix.speed,
+		GPS.fix.altitude,
+		GPS.fix.track);
+
+	printf("time=%ld,lat=%d,lon=%d,speed=%d,alt=%d\n",
+		ego_position_information.time_stamp,
+		ego_position_information.latitude,
+		ego_position_information.longitude,
+		ego_position_information.speed,
+		ego_position_information.altitude);
+	
+}
+
+
+
+static int send_socket(message  *m)
+{
+	int s, len;
+	int length;
+	struct sockaddr_un rem;
+	if ((s = socket(AF_UNIX, SOCK_STREAM, 0)) == -1) {
+		perror("socket");
+		return 1;
+	}
+	//printf("Trying to connect...\n");
+
+	rem.sun_family = AF_UNIX;
+	strcpy(rem.sun_path, SOCK_ITSNET_PATH);
+	len = strlen(rem.sun_path) + sizeof(rem.sun_family);
+	if (connect(s, (struct sockaddr *)&rem, len) == -1) {
+		perror("connect");
+		return 2;
+	}
+
+	//printf("Connected.\n"); 
+
+	length=sizeof(*m);
+	write (s, &length, sizeof (length));
+	write (s,m, length);
+
+
+	close(s);
+	return 0;
+}
+
+
+int main() {
+	int rc;
+	struct timeval tv;
+	struct message m;
+
+	struct gps_data_t gps_data;
+	if ((rc = gps_open("localhost", "2947", &GPS)) == -1) {
+    		printf("code: %d, reason: %s\n", rc, gps_errstr(rc));
+    		return EXIT_FAILURE;
+	}
+	gps_stream(&GPS, WATCH_ENABLE | WATCH_JSON, NULL);
+
+	m.msg_hdr.aid=itsnet_position_sensor;
+	m.msg_hdr.sid=itsnet_management_sap;
+	m.msg_hdr.opcode=itsnet_request;
+	m.msg_hdr.aid=itsnet_position_sensor;
+	m.payload.itsnet_position_sensor_req.position_information=ego_position_information;
+
+	while (1) {
+    		/* wait for 2 seconds to receive data */
+    		if (gps_waiting (&GPS, 3000000)) {
+        	/* read data */
+        	if ((rc = gps_read(&GPS)) == -1) {
+            		printf("error occured reading gps data. code: %d, reason: %s\n", rc, gps_errstr(rc));
+        	} else {
+            		/* Display data from the GPS receiver. */
+            		if ((GPS.status == STATUS_FIX) && 
+                		(GPS.fix.mode == MODE_2D || GPS.fix.mode == MODE_3D) &&
+                		!isnan(GPS.fix.latitude) && 
+                		!isnan(GPS.fix.longitude)) {
+                    		gettimeofday(&tv, NULL);
+                    		//printf("latitude: %f, longitude: %f, speed: %f, timestamp: %ld\n", GPS.fix.latitude, GPS.fix.longitude, GPS.fix.speed, tv.tv_sec);
+            		} else {
+                		printf("no GPS data available\n");
+            		}
+        	}
+    		}			
+
+		gps_data_update();
+		m.payload.itsnet_position_sensor_req.position_information=ego_position_information;
+
+		send_socket(&m);
+    	
+		usleep(1000 *1000);
+	}
+
+	/* When you are done... */
+	gps_stream(&gps_data, WATCH_DISABLE, NULL);
+	gps_close (&gps_data);
+
+	return EXIT_SUCCESS;
+}
+
+
+
+int convert_format_lat(const double lat)
+{
+	return (((int)(lat * 1000000))<<3);
+}
+
+int convert_format_alt(const double alt)
+{
+	return (int)(alt * 10);
+}
+
+double inv_convert_format_lat(const int lat)
+{
+
+	return ((double)(lat>>3))/1000000;
+}
+
+
+int convert_format_long(const double lon)
+{
+	return (((int)(lon * 1000000))<<3);
+}
+
+
+double inv_convert_format_long(const int lon)
+{
+	return ((double)(lon>>3))/1000000;
+}
+
+int convert_time_stamp(const double ts)
+{
+	//return(((int)ts) % 65536);
+	return (unsigned long)(ts);
+}
+
+
+int convert_format_spd(const double spd)
+{
+	return (int)(spd*100);
+}
+
+double inv_convert_format_spd(const int spd)
+{
+	return (double)(spd/100);
+}
+
+int convert_format_head(const double heading)
+{
+	return (int)(heading*100);
+}
+
+double inv_convert_format_head(const int heading)
+{
+	return (double)(heading/100);
+}
+
+double _deg2rad(double deg)
+{
+	return ( deg * ( PI / 180.0 ) );
+}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<style type="text/css">
+	body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+	</style>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=IdEY5PXH5YN98rC1kq70YDStUNciVr3q"></script>
+	<script type="text/javascript" src="js/dataProcess.js"></script>
+	<script type="text/javascript" src="js/LuShu.js"></script>
+	<script type="text/javascript" src="js/updateData.js"></script>
+	<script type="text/javascript" src="js/myZoomCtrl.js"></script>
+	<title>地图展示</title>
+</head>
+<body>
+	<div id="allmap"></div>
+</body>
+</html>
+
+
+<script type="text/javascript">
+	var points = [new BMap.Point(116.3786889372559,39.90762965106183),
+                  new BMap.Point(116.38632786853032,39.90795884517671),
+                  new BMap.Point(116.39534009082035,39.907432133833574),
+                  new BMap.Point(116.40624058825688,39.90789300648029),
+                  new BMap.Point(116.41413701159672,39.90795884517671)
+    ];
+
+	
+	var carNum;				//车辆总数
+	var initAngle;
+    var cars = new Array();
+	var animations = new Array();
+	var myZoomCtrls = new Array();
+	
+	var carIDs 				= new Array();
+	var longitudes 			= new Array();
+	var latitudes 			= new Array();
+	var speeds 				= new Array();
+	var decelerations 		= new Array();
+	var ttcs 				= new Array();
+	var yaw_palstances 		= new Array();
+	var steering_palstances = new Array();
+	var cornering_signals 	= new Array();
+	var timestamps 			= new Array();
+	
+	var aliveCars = new Array();
+	var alivePoss = new Array();
+	var aliveSpds = new Array();
+	var aliveTims = new Array();
+
+	//初始化地图车辆数目
+	carNum = 3;
+	//初始化数据更新频率
+	updateIntval = 200;
+	//初始化数据
+	initData();
+
+	// 百度地图API功能
+	var map = new BMap.Map("allmap", {mapType: BMAP_SATELLITE_MAP});    // 创建Map实例
+	var carIcon = new BMap.Icon("img/car-fushi.png", new BMap.Size(95, 43), {}); 
+	var truckIcon = new BMap.Icon("img/truck-fushi.png", new BMap.Size(95, 43), {}); 
+	//var mapStyle = new BMap.MapType("mapStyle", BMAP_SATELLITE_MAP);
+	map.centerAndZoom(new BMap.Point(106.487717, 29.676566), 17);  // 初始化地图,设置中心点坐标和地图级别
+	map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
+	map.setCurrentCity("重庆");          // 设置地图显示的城市 此项是必须设置的
+	map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+	//map.setMapStyle(mapStyle);
+	completeMapInit();
+	
+	function completeMapInit() {
+		cars[0] = new BMap.Marker(new BMap.Point(0, 0), {icon: carIcon});
+		cars[1] = new BMap.Marker(new BMap.Point(0, 0), {icon: carIcon});
+		cars[2] = new BMap.Marker(new BMap.Point(0, 0), {icon: carIcon});
+		cars[3] = new BMap.Marker(new BMap.Point(0, 0), {icon: truckIcon});
+		cars[4] = new BMap.Marker(new BMap.Point(0, 0), {icon: truckIcon});
+		for(var i=0; i<carNum; i++){
+			myZoomCtrls[i] = new ZoomControl(i, (i+1)*40);
+			map.addControl(myZoomCtrls[i]);
+	
+			map.addOverlay(cars[i]);
+
+			animations[i] = new BMapLib.LuShu(map,cars[i],{
+                autoView:true,//是否开启自动视野调整，如果开启那么路书在运动过程中会根据视野自动调整
+                enableRotation:true,//是否设置marker随着道路的走向进行旋转
+            });  			
+		}
+		
+		//animations[0].start(new BMap.Point(116.424, 39.915), 4000);
+		setTimeout("updateData('php/query_db.php')",updateIntval);
+    }
+</script>

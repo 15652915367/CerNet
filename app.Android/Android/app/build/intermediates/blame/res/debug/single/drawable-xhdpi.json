@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_launcher.png",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\drawable-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\listdd.9.png",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\drawable-xhdpi\\listdd.9.png"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\dingwei.png",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\drawable-xhdpi\\dingwei.png"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_launcher0.png",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\drawable-xhdpi\\ic_launcher0.png"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\listcc.9.png",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\drawable-xhdpi\\listcc.9.png"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\chekuang.png",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\drawable-xhdpi\\chekuang.png"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\zhenduan.png",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\drawable-xhdpi\\zhenduan.png"
+    }
+]

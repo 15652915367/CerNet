@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\zhenduan.png",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\drawable-mdpi\\zhenduan.png"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\ic_launcher0.png",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\drawable-mdpi\\ic_launcher0.png"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\chekuang.png",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\drawable-mdpi\\chekuang.png"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\listcc.9.png",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\drawable-mdpi\\listcc.9.png"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\dingwei.png",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\drawable-mdpi\\dingwei.png"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\ic_launcher.png",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\drawable-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\listdd.9.png",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\drawable-mdpi\\listdd.9.png"
+    }
+]

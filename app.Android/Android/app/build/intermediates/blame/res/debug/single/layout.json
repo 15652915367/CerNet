@@ -1,0 +1,58 @@
+[
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\offline.xml",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\layout\\offline.xml"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\offline_localmap_list.xml",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\layout\\offline_localmap_list.xml"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_overlay.xml",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\layout\\activity_overlay.xml"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_details.xml",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\layout\\activity_details.xml"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\top_custom.xml",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\layout\\top_custom.xml"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\carinfo.xml",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\layout\\carinfo.xml"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\detail_fragment.xml",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\layout\\detail_fragment.xml"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\bottom_tab.xml",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\layout\\bottom_tab.xml"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\zhenduan_fragment.xml",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\layout\\zhenduan_fragment.xml"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\map_fragment.xml",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\layout\\map_fragment.xml"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\detail_item.xml",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\layout\\detail_item.xml"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\car_item.xml",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\layout\\car_item.xml"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\layout\\myspinner.xml",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\layout\\myspinner.xml"
+    }
+]

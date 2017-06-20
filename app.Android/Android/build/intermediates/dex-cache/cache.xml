@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\Users\ii\AndroidStudioProjects\UITest\app\libs\com.baidu.speechsynthesizer_1.1.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="b0aa0e9f2856725a595e3d1e8b18fd6031a9840d">
+        <dex dex="C:\Users\ii\AndroidStudioProjects\UITest\app\build\intermediates\pre-dexed\debug\com.baidu.speechsynthesizer_1.1.1_790ff884427ccffe0ff7e43b2f640f08c29c5052.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\ii\AndroidStudioProjects\UITest\app\libs\baidumapapi_v3_5_0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="ba79500bb64218f10b5fd0d5ea54503b2bf6b3bb">
+        <dex dex="C:\Users\ii\AndroidStudioProjects\UITest\app\build\intermediates\pre-dexed\debug\baidumapapi_v3_5_0_0193ee2fbbbf1cce57e558d29cf550a937445e73.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\ii\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-v4\19.1.0\support-v4-19.1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67">
+        <dex dex="C:\Users\ii\AndroidStudioProjects\UITest\app\build\intermediates\pre-dexed\debug\support-v4-19.1.0_79efe4a44b66ed7fa743c1ddf6362f56152586ad.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\ii\AndroidStudioProjects\UITest\app\libs\galaxy_lite.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="0badbd646e689e1a9e032d5305813c1f961f5f1a">
+        <dex dex="C:\Users\ii\AndroidStudioProjects\UITest\app\build\intermediates\pre-dexed\debug\galaxy_lite_190149d508a31b5f77295d99612706f4cbffaa3f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\ii\AndroidStudioProjects\UITest\app\libs\locSDK_5.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="389047997db28fcb848dc4247c5590a08b7ff769">
+        <dex dex="C:\Users\ii\AndroidStudioProjects\UITest\app\build\intermediates\pre-dexed\debug\locSDK_5.2_a6b17d0ae316b76eaad4ada49401cc328f431458.jar" />
+    </item>
+
+</items>

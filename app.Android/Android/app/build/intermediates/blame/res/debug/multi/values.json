@@ -1,0 +1,151 @@
+[
+    {
+        "outputFile": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endLine": 8,
+                    "endColumn": 19,
+                    "endOffset": 226
+                },
+                "from": {
+                    "file": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\values\\arrays.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 57,
+                        "endLine": 8,
+                        "endColumn": 19,
+                        "endOffset": 234
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 231,
+                    "endLine": 12,
+                    "endColumn": 19,
+                    "endOffset": 334
+                },
+                "from": {
+                    "file": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\values\\spinner_data.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 339,
+                    "endColumn": 57,
+                    "endOffset": 392
+                },
+                "from": {
+                    "file": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\values\\dimens.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 397,
+                    "endColumn": 55,
+                    "endOffset": 448
+                },
+                "from": {
+                    "file": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\values\\dimens.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 453,
+                    "endColumn": 46,
+                    "endOffset": 495
+                },
+                "from": {
+                    "file": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\values\\strings.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 500,
+                    "endColumn": 43,
+                    "endOffset": 539
+                },
+                "from": {
+                    "file": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\values\\strings.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 544,
+                    "endColumn": 48,
+                    "endOffset": 588
+                },
+                "from": {
+                    "file": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\values\\strings.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 593,
+                    "endColumn": 36,
+                    "endOffset": 625
+                },
+                "from": {
+                    "file": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\values\\strings.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 19,
+                    "startColumn": 4,
+                    "startOffset": 630,
+                    "endColumn": 45,
+                    "endOffset": 671
+                },
+                "from": {
+                    "file": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\values\\strings.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 20,
+                    "startColumn": 4,
+                    "startOffset": 676,
+                    "endLine": 22,
+                    "endColumn": 12,
+                    "endOffset": 754
+                },
+                "from": {
+                    "file": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\values\\styles.xml"
+                }
+            },
+            {
+                "to": {
+                    "startLine": 23,
+                    "startColumn": 4,
+                    "startOffset": 759,
+                    "endLine": 25,
+                    "endColumn": 12,
+                    "endOffset": 826
+                },
+                "from": {
+                    "file": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\values\\styles.xml"
+                }
+            }
+        ]
+    }
+]

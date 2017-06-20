@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi\\listcc.9.png",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\drawable-ldpi\\listcc.9.png"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi\\chekuang.png",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\drawable-ldpi\\chekuang.png"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi\\listdd.9.png",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\drawable-ldpi\\listdd.9.png"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi\\dingwei.png",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\drawable-ldpi\\dingwei.png"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi\\zhenduan.png",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\drawable-ldpi\\zhenduan.png"
+    }
+]

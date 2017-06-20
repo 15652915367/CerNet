@@ -1,0 +1,51 @@
+#!/bin/bash
+
+############################ Set Parameters ##########################
+OBU_NUMBER=10
+
+INNER_IPV6_ADDR="2001:da8:215:509::0/80"
+DEFAULT_GATEWAY_ADDR="fe80::eda:41ff:fe12:ef72"
+IF_TO_OUTER="wlan1"
+IF_TO_INNER="wlan0"
+
+TEMP=`ifconfig -a|grep inet6|grep -v ::1|grep -v fe80|awk '{print $3}'`
+ROUTER_OUTER_ADDR=`echo $TEMP|sed 's:/64::g'`
+
+TEMP=`hostname`
+RSU_INDEX=`echo $TEMP|sed 's:RSU::g'`
+ROUTER_INNER_ADDR_BASE="2001:da8:215:509::10"
+ROUTER_INNER_ADDR_MASK="/80"
+ROUTER_INNER_ADDR=${ROUTER_INNER_ADDR_BASE}${RSU_INDEX}${ROUTER_INNER_ADDR_MASK}
+
+PORT_BASE="5000"
+INNER_IPV6_ADDR_BASE="2001:da8:215:509::"
+
+TRUE="1"
+FALSE="0"
+######################################################################
+
+
+ifconfig wlan0 inet6 add $ROUTER_INNER_ADDR
+sysctl -w net.ipv6.conf.all.forwarding=$TRUE
+
+## Clear all rules in FORWARD & NAT table
+ip6tables -F 
+ip6tables -F -t nat
+
+## Set rule in FORWARD table
+ip6tables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+## NAT for inner network to outer network
+ip6tables -t nat -A POSTROUTING -s $INNER_IPV6_ADDR -j SNAT --to $ROUTER_OUTER_ADDR
+
+## NAT for outer network to inner network
+declare -i i
+for ((i=1;i<=$OBU_NUMBER;i=i+1))
+do
+    ip6tables -t nat -A PREROUTING -d $ROUTER_OUTER_ADDR -p udp --dport ${PORT_BASE}${i} -j DNAT --to ${INNER_IPV6_ADDR_BASE}${i}
+done   
+
+sleep 1
+ip -6 route add default via $DEFAULT_GATEWAY_ADDR dev $IF_TO_OUTER
+
+echo "antvanet init finished!" 

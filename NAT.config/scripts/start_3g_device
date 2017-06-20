@@ -1,0 +1,25 @@
+#!/bin/bash
+eject /dev/sr0
+sleep 3
+/sbin/modprobe -v option
+echo "19d2 1589" > /sys/bus/usb-serial/drivers/option1/new_id
+wvdialconf
+sleep 1
+wvdial &
+sleep 3
+wvdial &
+sleep 1
+
+#Start nl_vanet with IPv6
+    #Use debug data
+# 	nl_vanet -ipv6 22 1 &
+    #Use real data
+#       nl_vanet -ipv6 22 0 &
+
+#Start nl_vanet with WSMP
+    #Use debug data
+#       nl_vanet -wsmp 1 &
+    #Use real data
+#        nl_vanet -wsmp 0 &
+
+

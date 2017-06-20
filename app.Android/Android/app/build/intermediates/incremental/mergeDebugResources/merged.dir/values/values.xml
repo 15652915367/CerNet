@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="city">
+        <item>厦门市</item>
+        <item>福州市</item>
+        <item>泉州市</item>
+        <item>漳州市</item>
+        <item>龙岩市</item>
+    </string-array>
+    <string-array name="degrees">
+        <item>CAR 2</item>
+        <item>CAR 8</item>
+    </string-array>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <string name="action_settings">设置</string>
+    <string name="app_name">智能网联汽车</string>
+    <string name="degrees_prompt">车牌号码：</string>
+    <string name="jam">堵塞扩散</string>
+    <string name="offlineMap">离线地图下载</string>
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme">
+        
+    </style>
+</resources>

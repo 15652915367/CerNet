@@ -1,0 +1,36 @@
+itsnet_event_service.o: itsnet_event_service.c itsnet_event_service.h \
+ itsnet_types.h /usr/lib/gcc/i486-linux-gnu/4.7/include/stdint.h \
+ /usr/include/stdint.h /usr/include/features.h \
+ /usr/include/i386-linux-gnu/bits/predefs.h \
+ /usr/include/i386-linux-gnu/sys/cdefs.h \
+ /usr/include/i386-linux-gnu/bits/wordsize.h \
+ /usr/include/i386-linux-gnu/gnu/stubs.h \
+ /usr/include/i386-linux-gnu/gnu/stubs-32.h \
+ /usr/include/i386-linux-gnu/bits/wchar.h itsnet_header.h \
+ itsnet_listener.h
+
+itsnet_event_service.h:
+
+itsnet_types.h:
+
+/usr/lib/gcc/i486-linux-gnu/4.7/include/stdint.h:
+
+/usr/include/stdint.h:
+
+/usr/include/features.h:
+
+/usr/include/i386-linux-gnu/bits/predefs.h:
+
+/usr/include/i386-linux-gnu/sys/cdefs.h:
+
+/usr/include/i386-linux-gnu/bits/wordsize.h:
+
+/usr/include/i386-linux-gnu/gnu/stubs.h:
+
+/usr/include/i386-linux-gnu/gnu/stubs-32.h:
+
+/usr/include/i386-linux-gnu/bits/wchar.h:
+
+itsnet_header.h:
+
+itsnet_listener.h:

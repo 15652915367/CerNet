@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">智能网联汽车</string>
+    <string name="offlineMap">离线地图下载</string>
+    <string name="action_settings">设置</string>
+    <string name="degrees_prompt">车牌号码：</string>  
+    <string name="jam">堵塞扩散</string>
+</resources>

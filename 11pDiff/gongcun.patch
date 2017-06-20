@@ -1,0 +1,390 @@
+diff -urN compat-wireless-3.4-rc3-1/include/linux/compat_autoconf.h gongcun/compat-wireless-3.4-rc3-1/compat-wireless-3.4-rc3-1/include/linux/compat_autoconf.h
+--- compat-wireless-3.4-rc3-1/include/linux/compat_autoconf.h	2015-08-10 16:13:23.916180427 +0800
++++ gongcun/compat-wireless-3.4-rc3-1/compat-wireless-3.4-rc3-1/include/linux/compat_autoconf.h	2014-11-03 16:27:14.000000000 +0800
+@@ -2,7 +2,7 @@
+ #define COMPAT_AUTOCONF_INCLUDED
+ /*
+  * Automatically generated C config: don't edit
+- * Mon Aug 10 16:13:21 CST 2015 
++ * 2014年 11月 03日 星期一 08:27:04 GMT 
+  * compat-wireless-2.6: compat-wireless-v3.4-rc3-1
+  * linux-2.6: v3.4-rc3
+  */
+diff -urN compat-wireless-3.4-rc3-1/net/mac80211/cfg.c gongcun/compat-wireless-3.4-rc3-1/compat-wireless-3.4-rc3-1/net/mac80211/cfg.c
+--- compat-wireless-3.4-rc3-1/net/mac80211/cfg.c	2015-08-07 10:41:52.000000000 +0800
++++ gongcun/compat-wireless-3.4-rc3-1/compat-wireless-3.4-rc3-1/net/mac80211/cfg.c	2015-08-09 10:50:06.000000000 +0800
+@@ -1468,6 +1468,23 @@
+ 				 struct ieee80211_channel *chan,
+ 				 enum nl80211_channel_type channel_type)
+ {
++	//distinguish two cards
++	struct wireless_dev *wdev = netdev->ieee80211_ptr;
++	int is_b = 0;
++	struct ieee80211_supported_band *sband;
++	sband = wdev->wiphy->bands[IEEE80211_BAND_2GHZ];
++	if(sband) {
++		int i;
++		for(i = 0; i< sband->n_bitrates; i++) {
++			if(sband->bitrates[i].bitrate == 10)
++				is_b = 1;
++		}
++	}
++	if(is_b)
++		printk(KERN_DEBUG "I am the wlan card %s, %s, %d \n", __FUNCTION__, __FILE__, __LINE__);
++	else
++		printk(KERN_DEBUG "I am the 11p card %s, %s, %d \n", __FUNCTION__, __FILE__, __LINE__);
++
+ 	struct ieee80211_local *local = wiphy_priv(wiphy);
+ 	struct ieee80211_sub_if_data *sdata = NULL;
+ 	struct ieee80211_channel *old_oper;
+@@ -1481,8 +1498,9 @@
+ 	case CHAN_MODE_HOPPING:
+ 		return -EBUSY;
+ 	case CHAN_MODE_FIXED:
+-		if (local->oper_channel != chan)
+-			return -EBUSY;
++		if(is_b)
++			if (local->oper_channel != chan)
++				return -EBUSY;
+ 		if (!sdata && local->_oper_channel_type == channel_type)
+ 			return 0;
+ 		break;
+@@ -1532,7 +1550,22 @@
+ 			  struct net_device *dev,
+ 			  struct cfg80211_scan_request *req)
+ {
++	//distinguish two cards
++	struct wireless_dev *wdev = dev->ieee80211_ptr;
++	int is_b = 0;
++	struct ieee80211_supported_band *sband;
++	sband = wdev->wiphy->bands[IEEE80211_BAND_2GHZ];
++	if(sband) {
++		int i;
++		for(i = 0; i< sband->n_bitrates; i++) {
++			if(sband->bitrates[i].bitrate == 10)
++				is_b = 1;
++		}
++	}
+ 	struct ieee80211_sub_if_data *sdata = IEEE80211_DEV_TO_SUB_IF(dev);
++	
++	if(!is_b)
++		return -EBUSY;//ahy
+ 
+ 	switch (ieee80211_vif_type_p2p(&sdata->vif)) {
+ 	case NL80211_IFTYPE_STATION:
+diff -urN compat-wireless-3.4-rc3-1/net/mac80211/ibss.c gongcun/compat-wireless-3.4-rc3-1/compat-wireless-3.4-rc3-1/net/mac80211/ibss.c
+--- compat-wireless-3.4-rc3-1/net/mac80211/ibss.c	2015-08-07 10:41:52.000000000 +0800
++++ gongcun/compat-wireless-3.4-rc3-1/compat-wireless-3.4-rc3-1/net/mac80211/ibss.c	2014-11-26 00:50:06.000000000 +0800
+@@ -711,6 +711,20 @@
+ 
+ static void ieee80211_sta_find_ibss(struct ieee80211_sub_if_data *sdata)
+ {
++	//distinguish two cards
++	struct net_device *netdev = sdata->dev;	
++	struct wireless_dev *wdev = netdev->ieee80211_ptr;
++	int is_b = 0;
++	struct ieee80211_supported_band *sband;
++	sband = wdev->wiphy->bands[IEEE80211_BAND_2GHZ];
++	if(sband) {
++		int i;
++		for(i = 0; i< sband->n_bitrates; i++) {
++			if(sband->bitrates[i].bitrate == 10)
++				is_b = 1;
++		}
++	}
++
+ 	struct ieee80211_if_ibss *ifibss = &sdata->u.ibss;
+ 	struct ieee80211_local *local = sdata->local;
+ 	struct cfg80211_bss *cbss;
+@@ -765,36 +779,69 @@
+ #ifdef CONFIG_MAC80211_IBSS_DEBUG
+ 	printk(KERN_DEBUG "   did not try to join ibss\n");
+ #endif /* CONFIG_MAC80211_IBSS_DEBUG */
++	
++	if(!is_b) {
++		/* Selected IBSS not found in current scan results - try to scan */
++//		if (time_after(jiffies, ifibss->last_scan_completed +
++//						IEEE80211_SCAN_INTERVAL)) {
++//			printk(KERN_DEBUG "%s: Trigger new scan to find an IBSS to "
++//		       	"join\n", sdata->name);
++//
++//			ieee80211_request_internal_scan(sdata,
++//					ifibss->ssid, ifibss->ssid_len,
++//					ifibss->fixed_channel ? ifibss->channel : NULL);
++/*		} else {*/
++			int interval = IEEE80211_SCAN_INTERVAL;
++
++//			if (time_after(jiffies, ifibss->ibss_join_req +
++//			       	IEEE80211_IBSS_JOIN_TIMEOUT)) {
++//				if (!(local->oper_channel->flags & IEEE80211_CHAN_NO_IBSS)) {
++					ieee80211_sta_create_ibss(sdata);
++					return;
++//				}
++				printk(KERN_DEBUG "%s: IBSS not allowed on"
++			       	" %d MHz\n", sdata->name,
++			       	local->hw.conf.channel->center_freq);
++
++				/* No IBSS found - decrease scan interval and continue
++			 	* scanning. */
++				interval = IEEE80211_SCAN_INTERVAL_SLOW;
++//			}
+ 
+-	/* Selected IBSS not found in current scan results - try to scan */
+-	if (time_after(jiffies, ifibss->last_scan_completed +
+-					IEEE80211_SCAN_INTERVAL)) {
+-		printk(KERN_DEBUG "%s: Trigger new scan to find an IBSS to "
+-		       "join\n", sdata->name);
+-
+-		ieee80211_request_internal_scan(sdata,
+-				ifibss->ssid, ifibss->ssid_len,
+-				ifibss->fixed_channel ? ifibss->channel : NULL);
+-	} else {
+-		int interval = IEEE80211_SCAN_INTERVAL;
+-
+-		if (time_after(jiffies, ifibss->ibss_join_req +
+-			       IEEE80211_IBSS_JOIN_TIMEOUT)) {
+-			if (!(local->oper_channel->flags & IEEE80211_CHAN_NO_IBSS)) {
+-				ieee80211_sta_create_ibss(sdata);
+-				return;
++			mod_timer(&ifibss->timer,
++				  round_jiffies(jiffies + interval));
++	}
++	else {
++		/* Selected IBSS not found in current scan results - try to scan */
++		if (time_after(jiffies, ifibss->last_scan_completed +
++						IEEE80211_SCAN_INTERVAL)) {
++			printk(KERN_DEBUG "%s: Trigger new scan to find an IBSS to "
++		       	"join\n", sdata->name);
++
++			ieee80211_request_internal_scan(sdata,
++					ifibss->ssid, ifibss->ssid_len,
++					ifibss->fixed_channel ? ifibss->channel : NULL);
++		} else {
++			int interval = IEEE80211_SCAN_INTERVAL;
++
++			if (time_after(jiffies, ifibss->ibss_join_req +
++			       	IEEE80211_IBSS_JOIN_TIMEOUT)) {
++				if (!(local->oper_channel->flags & IEEE80211_CHAN_NO_IBSS)) {
++					ieee80211_sta_create_ibss(sdata);
++					return;
++				}
++				printk(KERN_DEBUG "%s: IBSS not allowed on"
++			       	" %d MHz\n", sdata->name,
++			       	local->hw.conf.channel->center_freq);
++
++				/* No IBSS found - decrease scan interval and continue
++			 	* scanning. */
++				interval = IEEE80211_SCAN_INTERVAL_SLOW;
+ 			}
+-			printk(KERN_DEBUG "%s: IBSS not allowed on"
+-			       " %d MHz\n", sdata->name,
+-			       local->hw.conf.channel->center_freq);
+-
+-			/* No IBSS found - decrease scan interval and continue
+-			 * scanning. */
+-			interval = IEEE80211_SCAN_INTERVAL_SLOW;
+-		}
+ 
+-		mod_timer(&ifibss->timer,
+-			  round_jiffies(jiffies + interval));
++			mod_timer(&ifibss->timer,
++				  round_jiffies(jiffies + interval));
++		}
+ 	}
+ }
+ 
+diff -urN compat-wireless-3.4-rc3-1/net/mac80211/rx.c gongcun/compat-wireless-3.4-rc3-1/compat-wireless-3.4-rc3-1/net/mac80211/rx.c
+--- compat-wireless-3.4-rc3-1/net/mac80211/rx.c	2015-08-07 10:41:52.000000000 +0800
++++ gongcun/compat-wireless-3.4-rc3-1/compat-wireless-3.4-rc3-1/net/mac80211/rx.c	2014-11-26 02:21:50.000000000 +0800
+@@ -2869,6 +2869,23 @@
+ 	struct ieee80211_hdr *hdr = (void *)skb->data;
+ 	int prepares;
+ 
++	//distinguish two cards
++	struct net_device *netdev = sdata->dev;
++	struct wireless_dev *wdev = netdev->ieee80211_ptr;
++	int is_b = 0;
++	struct ieee80211_supported_band *sband;
++	sband = wdev->wiphy->bands[IEEE80211_BAND_2GHZ];
++	if(sband) {
++		int i;
++		for(i = 0; i< sband->n_bitrates; i++) {
++			if(sband->bitrates[i].bitrate == 10)
++				is_b = 1;
++		}
++	}
++	
++	if(!is_b)
++		memcpy(hdr->addr3, sdata->u.ibss.bssid, 6);
++			
+ 	rx->skb = skb;
+ 	status->rx_flags |= IEEE80211_RX_RA_MATCH;
+ 	prepares = prepare_for_handlers(rx, hdr);
+diff -urN compat-wireless-3.4-rc3-1/net/wireless/ibss.c gongcun/compat-wireless-3.4-rc3-1/compat-wireless-3.4-rc3-1/net/wireless/ibss.c
+--- compat-wireless-3.4-rc3-1/net/wireless/ibss.c	2015-08-07 10:41:48.000000000 +0800
++++ gongcun/compat-wireless-3.4-rc3-1/compat-wireless-3.4-rc3-1/net/wireless/ibss.c	2014-11-28 04:40:38.000000000 +0800
+@@ -8,6 +8,7 @@
+ #include <linux/if_arp.h>
+ #include <linux/slab.h>
+ #include <linux/export.h>
++#include <linux/netdevice.h>
+ #include <net/cfg80211.h>
+ #include "wext-compat.h"
+ #include "nl80211.h"
+@@ -226,11 +227,28 @@
+ 	struct cfg80211_cached_keys *ck = NULL;
+ 	enum ieee80211_band band;
+ 	int i, err;
++	
++	//distinguish two cards
++	int is_b = 0;
++	struct ieee80211_supported_band *sband;
++	sband = wdev->wiphy->bands[IEEE80211_BAND_2GHZ];
++	if(sband) {
++		int i;
++		for(i = 0; i< sband->n_bitrates; i++) {
++			if(sband->bitrates[i].bitrate == 10)
++				is_b = 1;
++		}
++	}
+ 
+ 	ASSERT_WDEV_LOCK(wdev);
+ 
+ 	if (!wdev->wext.ibss.beacon_interval)
+-		wdev->wext.ibss.beacon_interval = 100;
++	{
++		if (is_b)
++			wdev->wext.ibss.beacon_interval = 100;
++		else 
++			wdev->wext.ibss.beacon_interval = 0;
++	}
+ 
+ 	/* try to find an IBSS channel if none requested ... */
+ 	if (!wdev->wext.ibss.channel) {
+@@ -295,7 +313,20 @@
+ {
+ 	struct wireless_dev *wdev = dev->ieee80211_ptr;
+ 	struct cfg80211_registered_device *rdev = wiphy_to_dev(wdev->wiphy);
+-	struct ieee80211_channel *chan = NULL;
++	
++	//distinguish two cards
++	int is_b = 0;
++	struct ieee80211_supported_band *sband;
++	sband = wdev->wiphy->bands[IEEE80211_BAND_2GHZ];
++	if(sband) {
++		int i;
++		for(i = 0; i< sband->n_bitrates; i++) {
++			if(sband->bitrates[i].bitrate == 10)
++				is_b = 1;
++		}
++	}
++
++	struct ieee80211_channel *chan = NULL, *tmp1 = NULL, *tmp2 = NULL;
+ 	int err, freq;
+ 
+ 	/* call only for ibss! */
+@@ -323,8 +354,48 @@
+ 
+ 	wdev_lock(wdev);
+ 	err = 0;
+-	if (wdev->ssid_len)
+-		err = __cfg80211_leave_ibss(rdev, dev, true);
++	if (wdev->ssid_len) {
++		if (is_b)
++			err = __cfg80211_leave_ibss(rdev, dev, true);
++		else {
++			//fuck~ wish luckyl
++			//zxy
++			if (chan) {
++				printk("Len: ChanSwitch start!\n");
++				netif_tx_lock(dev);
++				if(wdev->wext.ibss.channel)
++					tmp1 = wdev->wext.ibss.channel;
++				if(wdev->current_bss)
++					tmp2 = wdev->current_bss->pub.channel;
++				if(tmp1)
++					tmp1->center_freq-=5000;
++				if(tmp2)
++					tmp2->center_freq-=5000;	
++				
++				err=rdev->ops->set_channel(wdev->wiphy,dev,chan,NL80211_CHAN_NO_HT);
++	
++				wdev->wext.ibss.channel = chan;
++				wdev->wext.ibss.channel_fixed = true;
++	
++				if(wdev->current_bss)
++					wdev->current_bss->pub.channel=chan;
++				
++				if(tmp1)
++					tmp1->center_freq+=5000;
++				if(tmp2)
++					tmp2->center_freq+=5000;
++//				sdata->u.ibss.channel = chan;
++//ah	y
++//				netif_tx_wake_all_queues_ant(dev);
++				netif_tx_unlock(dev);
++				wdev_unlock(wdev);
++				printk("Len: ChanSwitch end! err=%d\n",err);
++				return err;
++			} else {
++				err = __cfg80211_leave_ibss(rdev, dev, true);
++			}
++		}
++	}	
+ 	wdev_unlock(wdev);
+ 
+ 	if (err)
+diff -urN compat-wireless-3.4-rc3-1/net/wireless/nl80211.c gongcun/compat-wireless-3.4-rc3-1/compat-wireless-3.4-rc3-1/net/wireless/nl80211.c
+--- compat-wireless-3.4-rc3-1/net/wireless/nl80211.c	2015-08-07 10:41:48.000000000 +0800
++++ gongcun/compat-wireless-3.4-rc3-1/compat-wireless-3.4-rc3-1/net/wireless/nl80211.c	2014-12-02 18:06:34.000000000 +0800
+@@ -4765,14 +4765,33 @@
+ 	    !info->attrs[NL80211_ATTR_SSID] ||
+ 	    !nla_len(info->attrs[NL80211_ATTR_SSID]))
+ 		return -EINVAL;
+-
++/*
++	//distinguish two cards
++	int is_b = 0;
++	struct ieee80211_supported_band *sband;
++	sband = rdev->wiphy->bands[IEEE80211_BAND_2GHZ];
++	if(sband) {
++		int i;
++		for(i = 0; i< sband->n_bitrates; i++) {
++			if(sband->bitrates[i].bitrate == 10)
++				is_b = 1;
++		}
++	}
++*/
++	int is_b = 0;
+ 	ibss.beacon_interval = 100;
+ 
+ 	if (info->attrs[NL80211_ATTR_BEACON_INTERVAL]) {
+ 		ibss.beacon_interval =
+ 			nla_get_u32(info->attrs[NL80211_ATTR_BEACON_INTERVAL]);
+-		if (ibss.beacon_interval < 1 || ibss.beacon_interval > 10000)
+-			return -EINVAL;
++		if(is_b) {
++			if (ibss.beacon_interval < 0 || ibss.beacon_interval > 10000)
++				return -EINVAL;
++		}
++		else {
++			if (ibss.beacon_interval < 1 || ibss.beacon_interval > 10000)
++				return -EINVAL;
++		}	
+ 	}
+ 
+ 	if (!rdev->ops->join_ibss)
+diff -urN compat-wireless-3.4-rc3-1/net/wireless/wext-compat.c gongcun/compat-wireless-3.4-rc3-1/compat-wireless-3.4-rc3-1/net/wireless/wext-compat.c
+--- compat-wireless-3.4-rc3-1/net/wireless/wext-compat.c	2015-08-07 10:41:48.000000000 +0800
++++ gongcun/compat-wireless-3.4-rc3-1/compat-wireless-3.4-rc3-1/net/wireless/wext-compat.c	2014-11-26 00:15:34.000000000 +0800
+@@ -51,7 +51,9 @@
+ 	}
+ 
+ 	strcpy(name, "IEEE 802.11");
+-	if (is_a)
++	if (is_a && !is_b)
++		strcat(name, "p");
++	else if(is_a)
+ 		strcat(name, "a");
+ 	if (is_b)
+ 		strcat(name, "b");

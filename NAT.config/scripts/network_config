@@ -1,0 +1,36 @@
+#!/bin/bash
+
+ESSID="antvanet"
+TX_POWER="24dbm"
+TX_RATE="3M"
+CHANEL="161"
+TEMP=`hostname`
+OBU_IP_ADDR_BASE="192.168.1."
+RSU_IP_ADDR_BASE="192.168.10"
+BOX_TYPE=${TEMP:0:3}
+
+TRUE="1"
+FALSE="0"
+
+if [ "$BOX_TYPE"x = "RSU"x ];then
+    BOX_INDEX=`echo $TEMP|sed 's:RSU::g'`
+    IP_ADDR=${RSU_IP_ADDR_BASE}${BOX_INDEX}
+else
+    BOX_INDEX=`echo $TEMP|sed 's:OBU::g'`
+    IP_ADDR=${OBU_IP_ADDR_BASE}${BOX_INDEX} 
+fi    
+
+ifconfig wlan0 down
+iwconfig wlan0 mode ad-hoc
+iwconfig wlan0 essid $ESSID
+iwconfig wlan0 channel $CHANEL
+iwconfig wlan0 tx $TX_POWER
+ifconfig wlan0 $IP_ADDR netmask 255.255.255.0
+iwconfig wlan0 ap ff:ff:ff:ff:ff:fd
+iwconfig wlan0 rate $TX_RATE fixed
+
+ifconfig wlan0 up
+ifconfig wlan1 up
+
+## Init all
+. /root/init/scripts/init_all &

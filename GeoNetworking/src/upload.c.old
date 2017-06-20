@@ -1,0 +1,63 @@
+#include <stdio.h> 
+#include <string.h> 
+#include <stdlib.h> 
+ 
+#include <sys/types.h> 
+#include <sys/socket.h> 
+#include <fcntl.h> 
+#include <sys/ioctl.h> 
+#include <sys/time.h> 
+#include <sys/uio.h> 
+#include <netinet/in.h> 
+#include <netdb.h> 
+#include <pwd.h> 
+#include <arpa/inet.h> 
+#include <net/if.h> 
+
+#include "itsnet_header.h"
+#include "position_sensor.h" 
+#include "unp.h"  
+ 
+#define IF_NAME "wlan0" 
+#define TARGET_IPV6_ADDR "2001:da8:270:2018:f816:3eff:fe11:9211"   
+ 
+int sendto_remote(itsnet_position_vector pos)  
+{ 
+   int                     sockfd; 
+   int                     len, pkg_len; 
+   struct sockaddr_in6     servaddr; 
+   struct ifreq            ifstruct; 
+   char                    buff[1024]; 
+ 
+   //memset(&content.essid, 0, sizeof(content.essid)); 
+   memset(&buff, 0, sizeof(buff)); 
+   memset(&servaddr, 0, sizeof(servaddr)); 
+   memset(&ifstruct, 0, sizeof(ifstruct)); 
+ 
+   if ((sockfd = socket(AF_INET6, SOCK_DGRAM, 0)) <0){ 
+      perror("Socket error"); 
+      return; 
+   } 
+ 
+   servaddr.sin6_family = AF_INET6; 
+   servaddr.sin6_port   = htons(52222); 
+   strcpy(ifstruct.ifr_name, IF_NAME); 
+   ioctl(sockfd, SIOCGIFINDEX, &ifstruct); 
+   servaddr.sin6_scope_id = ifstruct.ifr_ifindex; 
+   if (inet_pton(AF_INET6, TARGET_IPV6_ADDR, &servaddr.sin6_addr) <= 0) 
+       exit(-1); 
+ 
+   sprintf(buff, "Jam!"); 
+ 
+    
+ 
+   //while (1) { 
+      if (sendto(sockfd, &pos, sizeof(pos), 0, (struct sockaddr *)&servaddr, sizeof(servaddr)) < 0) { 
+            perror("UnicastSend: fail to send data"); 
+            exit -1; 
+      }
+      close(sockfd);
+      //printf("%d, %d, %d\n", pos.latitude, pos.longitude, pos.time_stamp); 
+   //   sleep(1); 
+   //}  
+}

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+RSU_LOCAL_ADDR="fe80::4e5e:cff:fe12:85f1"
+
+TEMP=`hostname`
+OBU_INDEX=`echo $TEMP|sed 's:OBU::g'`
+OBU_INNER_ADDR_BASE="2001:da8:215:509::"
+OBU_INNER_ADDR_MASK="/80"
+OBU_INNER_ADDR=${OBU_INNER_ADDR_BASE}${OBU_INDEX}${OBU_INNER_ADDR_MASK}
+
+ifconfig wlan0 inet6 add $OBU_INNER_ADDR
+ip -6 route add default via $RSU_LOCAL_ADDR dev wlan0

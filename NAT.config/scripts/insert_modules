@@ -1,0 +1,40 @@
+#!/bin/bash
+
+LINUX_VERSION=`uname -r`
+MODULES_PATH_BASE="/lib/modules/"
+CFG80211="/kernel/net/wireless/cfg80211.ko"
+MAC80211="/kernel/net/mac80211/mac80211.ko"
+ATH="/kernel/drivers/net/wireless/ath/ath.ko"
+ATH5K="/kernel/drivers/net/wireless/ath/ath5k/ath5k.ko"
+ATH9K_HW="/kernel/drivers/net/wireless/ath/ath9k/ath9k_hw.ko"
+ATH9K_COMMON="/kernel/drivers/net/wireless/ath/ath9k/ath9k_common.ko"
+ATH9K="/kernel/drivers/net/wireless/ath/ath9k/ath9k.ko"
+USBSERIAL="/kernel/drivers/usb/serial/usbserial.ko"
+CH341="/kernel/drivers/usb/serial/ch341.ko"
+
+rmmod ath9k
+rmmod ath9k_common
+rmmod ath9k_hw
+rmmod ath5k
+rmmod ath
+rmmod mac80211
+rmmod cfg80211
+rmmod usbserial
+rmmod ch341
+
+#sleep 1
+
+insmod ${MODULES_PATH_BASE}${LINUX_VERSION}${CFG80211}
+insmod ${MODULES_PATH_BASE}${LINUX_VERSION}${MAC80211}
+insmod ${MODULES_PATH_BASE}${LINUX_VERSION}${ATH}
+insmod ${MODULES_PATH_BASE}${LINUX_VERSION}${ATH5K}
+insmod ${MODULES_PATH_BASE}${LINUX_VERSION}${ATH9K_HW}
+insmod ${MODULES_PATH_BASE}${LINUX_VERSION}${ATH9K_COMMON}
+insmod ${MODULES_PATH_BASE}${LINUX_VERSION}${ATH9K}
+insmod ${MODULES_PATH_BASE}${LINUX_VERSION}${USBSERIAL}
+#insmod ${MOUDLES_PATH_BASE}${LINUX_VERSION}${CH341}
+insmod /lib/modules/3.14.12/kernel/drivers/usb/serial/ch341.ko
+
+## network interface configure
+. /root/init/scripts/network_config #
+

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+OBU="O"
+TEMP=`hostname`
+TYPE=`echo $TEMP`
+
+if [ "${TYPE:0:1}" = "$OBU" ]
+then
+	. /root/init/scripts/start_ap_mode
+	sleep 3
+	. /root/init/scripts/nat_obu_config
+else
+	. /root/init/scripts/start_rsu_client
+	sleep 3
+	. /root/init/scripts/nat_rsu_config
+fi
+
+cd /root/init/bin
+./gps_config
+
+cd /root/cargeo6-config/
+./startOBU-sample.sh

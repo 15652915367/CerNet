@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\bg_edittext_focused.xml",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\drawable-hdpi\\bg_edittext_focused.xml"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_style.xml",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\drawable-hdpi\\button_style.xml"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\edit_cursor.xml",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\drawable-hdpi\\edit_cursor.xml"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\bg_edittext_normal.xml",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\drawable-hdpi\\bg_edittext_normal.xml"
+    },
+    {
+        "merged": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\bg_edittext.xml",
+        "source": "C:\\Users\\ii\\AndroidStudioProjects\\UITest\\app\\src\\main\\res\\drawable-hdpi\\bg_edittext.xml"
+    }
+]

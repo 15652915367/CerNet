@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Information Roll</title>
+	<link href="css/roll-box.css" rel="stylesheet">
+	<script src="js/jquery.js"></script>
+	<script src="js/roll.js" type="text/javascript"></script>	
+	<script>
+	$(function(){
+		$('.demo1').easyTicker({
+			direction: 'up',
+			easing: 'swing'
+		});
+		
+				
+		$('.demo3').easyTicker({
+			visible: 1,
+			interval: 4000
+		});
+		
+		
+		$('.demo5').easyTicker({
+			direction: 'up',
+			visible: 3,
+			interval: 1000,
+			controls: {
+				up: '.btnUp',
+				down: '.btnDown',
+				toggle: '.btnToggle'
+			}
+		});
+	});
+</script>
+</head>
+<body>
+	<div class="wrapper">
+	  <div class="demo5 demof">
+	    <ul>
+	      <li>
+	      	<div class="name">Car 1</div>
+	      	<img src="img/car-right.png" />
+	      	<div class="item">实时坐标：</div>
+	        <div class="value">21.4375；47.8903</div>
+
+	        <div class="item">车速：
+	        	<span class="value">80km/h</span>
+	        </div>
+	        
+	        <div class="item">航向：
+	        	<span class="value">90</span>
+	        </div>
+	        
+	      </li>
+	      	      <li>
+	      	<div class="name">Truck 1</div>
+	      	<img src="img/truck-left.png" />
+	      	<div class="item">实时坐标：</div>
+	        <div class="value">21.4375；47.8903</div>
+
+	        <div class="item">车速：
+	        	<span class="value">80km/h</span>
+	        </div>
+	        
+	        <div class="item">航向：
+	        	<span class="value">90</span>
+	        </div>
+	        
+	      </li>
+	    </ul>
+	  </div>
+	</div>
+</body>
+</html>

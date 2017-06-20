@@ -1,0 +1,11 @@
+Array
+(
+    [ACCEPT] => application/json
+    [ACCEPT-ENCODING] => gzip
+    [IDENTIFICATION] => a1.0.0
+    [APPID] => 2e85adc1a8c2464b9e9061b25011c0e7
+    [VERIFICATION] => 2045ec3ffa0b4dbf67cc9edec0e49620
+    [HOST] => 120.55.170.85
+    [CONNECTION] => Keep-Alive
+    [USER-AGENT] => Apache-HttpClient/4.4 (Java 1.5 minimum; Java/1.7.0_60)
+)

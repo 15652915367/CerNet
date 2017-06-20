@@ -1,0 +1,7 @@
+#ifndef UPLOAD_H
+#define UPLOAD_H
+
+int sendto_remote();
+
+#endif
+

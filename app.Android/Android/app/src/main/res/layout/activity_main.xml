@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.uitest.MainActivity" >
+    
+    <!-- 底部导航 -->
+    
+    <LinearLayout 
+        android:id="@+id/bottom_tab"
+        android:layout_width="match_parent"
+        android:layout_height="70dip"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:baselineAligned="true"
+        android:background="@drawable/tab_bg" >
+        
+        <com.example.uitest.TabGroup 
+            android:id="@+id/map"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0" />
+        
+        <com.example.uitest.TabGroup 
+            android:id="@+id/detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0" />
+    </LinearLayout>
+    
+    <!-- 内容部分 -->
+    
+    <LinearLayout 
+        android:id="@+id/context_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_tab"
+        android:orientation="vertical" >
+        
+        <android.support.v4.view.ViewPager
+        	android:id="@+id/viewpager"
+        	android:layout_width="fill_parent"
+        	android:layout_height="0dp"
+        	android:layout_weight="1" >
+    	</android.support.v4.view.ViewPager>
+    </LinearLayout>
+
+</RelativeLayout>

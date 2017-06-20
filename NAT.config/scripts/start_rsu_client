@@ -1,0 +1,5 @@
+#!/bin/bash
+killall dhcpcd-bin
+/sbin/wpa_supplicant -i wlan1 -c /etc/wpa_supplicant/example.conf -B
+sleep 1
+dhcpcd wlan1
