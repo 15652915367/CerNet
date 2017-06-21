@@ -14,7 +14,7 @@ app.Web 为前端云平台展示代码
 NAT.config 为NAT配置
 GeoNetworking 为基于地理位置路由的网络协议代码
   
-  部署环境 Linux内核3.14.12及以上，src文件夹内使用make指令，主机名配置为RSUx或者OBUx，配置config内各个脚本，启动指令为./startOBU-sample.sh
+  部署环境 Linux内核3.14.12及以上，src文件夹内使用make指令，主机名配置为RSUx或者OBUx，配置文件夹内3个脚本，启动指令为./startOBU-sample.sh
 
 11pDiff 为驱动层修改
   修改linux内核驱动：mac80211、cfg80211、ath、和ath5k驱动
